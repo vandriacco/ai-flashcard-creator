@@ -1,0 +1,15 @@
+{
+  "name": "ai-flashcard-creator",
+  "version": "1.0.0",
+  "description": "flashcards",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ai-flashcard-creator"
+  },
+  "author": "",
+  "license": "ISC"
+}
