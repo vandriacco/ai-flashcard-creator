@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import FileUpload from './FileUpload';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
+import Input from './Input'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,34 +48,14 @@ export default function BasicTabs() {
     <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="Dictionary" {...a11yProps(0)} />
-                <Tab label="Text" {...a11yProps(1)} />
-                <Tab label="Document" {...a11yProps(2)} />
+                <Tab label="Text" {...a11yProps(0)} />
+                <Tab label="Document" {...a11yProps(1)} />
             </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-            <TextField
-                id="outlined-multiline-static"
-                label="Single Word"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <SearchIcon />
-                        </InputAdornment>
-                    ),
-                  }}
-                />
+            <Input />
         </TabPanel>
         <TabPanel value={value} index={1}>
-            <TextField
-                id="outlined-multiline-static"
-                label="Text"
-                multiline
-                rows={5}
-                fullWidth
-                />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
             <FileUpload/>
         </TabPanel>
     </Box>
