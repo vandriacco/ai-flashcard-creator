@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function TargetLangSelect( { text, selectedLang, setSelectedLang } ) {
-  const [lang, setAge] = React.useState('');
 
   const handleChange = (event) => {
     setSelectedLang(event.target.value);

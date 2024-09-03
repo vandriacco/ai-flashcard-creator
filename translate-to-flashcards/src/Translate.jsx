@@ -1,5 +1,5 @@
-import React from 'react';
-import TabPanel from './Tabs'
+import React, { useState } from 'react';
+import BasicTabs from './Tabs'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -8,21 +8,31 @@ import Results from './Results';
 import { spacing } from '@mui/system';
 import SourceLangSelect from './SourceLangSelect';
 import TargetLangSelect from './TargetLangSelect';
+import * as deepl from 'deepl-node';
 
 export default function Translate() {
     const [sourceLang, setSourceLang] = React.useState('');
     const [targetLang, setTargetLang] = React.useState('');
-
     const [translatedText, setTranslatedText] = React.useState('');
+    const [textValue, setTextValue] = useState('')
 
-    function getTranslation() {
-        const text = doAPICall()
-        setTranslatedText(text);
+    const getTranslation = () => {
+        //const result = await textAPICall(sourceLang, targetLang, textValue)
+        console.log(textValue);
+        console.log(sourceLang);
+        console.log(targetLang)
+
+        //setTranslatedText(result);
     }
 
-    function doAPICall() {
-        
-    }    
+    // const textAPICall = async (sourceLang, targetLang, textValue) => {
+    //     const authKey = "b3bd7aba-04db-4a04-8422-55091c2d2053:fx"; // Replace with your key
+    //     const result = await translator.translateText(textValue, sourceLang, targetLang);
+
+    //     return result.text;
+    // }
+
+
     
     return (
         <>
@@ -44,7 +54,7 @@ export default function Translate() {
                 padding={2}
                 boxSizing="border-box"
             >
-                <TabPanel/>
+                <BasicTabs textValue={textValue} setTextValue={setTextValue}/>
                 <Box
                     display="flex"
                     flexDirection="column"
