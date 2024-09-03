@@ -8,7 +8,6 @@ import Results from './Results';
 import { spacing } from '@mui/system';
 import SourceLangSelect from './SourceLangSelect';
 import TargetLangSelect from './TargetLangSelect';
-import * as deepl from 'deepl-node';
 
 export default function Translate() {
     const [sourceLang, setSourceLang] = React.useState('');
