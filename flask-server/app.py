@@ -2,7 +2,6 @@ from flask import Flask, request, send_file
 import deepl
 from flask_cors import CORS
 from generate_deck import generate_deck
-from key import API_KEY
 from dotenv import load_dotenv
 import os
 
