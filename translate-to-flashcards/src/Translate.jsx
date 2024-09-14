@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BasicTabs from './Tabs'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -14,24 +14,55 @@ export default function Translate() {
     const [targetLang, setTargetLang] = React.useState('');
     const [translatedText, setTranslatedText] = React.useState('');
     const [textValue, setTextValue] = useState('')
+    const [data, setData] = useState([{}])
 
-    const getTranslation = () => {
-        //const result = await textAPICall(sourceLang, targetLang, textValue)
-        console.log(textValue);
-        console.log(sourceLang);
-        console.log(targetLang)
+    useEffect(() => {
+        // getTranslation();
+    }, [])
 
-        //setTranslatedText(result);
+    const getTranslation = async() => {
+        await fetch(`/translate-text?sourceLang=${sourceLang}&targetLang=${targetLang}&text=${textValue}`).then(
+            results => results.json()
+        ).then(
+            data => {
+                setData(data)
+                setTranslatedText(data["text"]);
+            }
+        );
     }
 
-    // const textAPICall = async (sourceLang, targetLang, textValue) => {
-    //     const authKey = "b3bd7aba-04db-4a04-8422-55091c2d2053:fx"; // Replace with your key
-    //     const result = await translator.translateText(textValue, sourceLang, targetLang);
-
-    //     return result.text;
-    // }
-
-
+    const downloadDeck = async () => {
+        try {
+          const response = await fetch(`/create-flashcards?sourceLang=${sourceLang}&targetLang=${targetLang}&text=${textValue}`);
+          
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          
+          // Get the file name from content-disposition header (optional)
+          const disposition = response.headers.get('Content-Disposition');
+          const fileName = disposition ? disposition.split('filename=')[1] : 'downloaded_file';
+    
+          // Create a blob from the response
+          const blob = await response.blob();
+          
+          // Create a link element
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = fileName;
+          
+          // Append the link to the body and click it
+          document.body.appendChild(link);
+          link.click();
+          
+          // Clean up
+          link.remove();
+          URL.revokeObjectURL(link.href);
+          
+        } catch (error) {
+          console.error('Error downloading the file:', error);
+        }
+      };
     
     return (
         <>
@@ -76,9 +107,33 @@ export default function Translate() {
             </Box>
             <Box
                 padding={5}
-                sx={{pr: 19, borderTop: 1, borderColor: 'grey.500'}}
+                sx={{
+                    pr: 19,
+                    borderTop: 1,
+                    borderColor: 'grey.500',
+                    display: 'flex',
+                    flexDirection: 'column', // Arrange children vertically
+                    alignItems: 'flex-start', // Align items to the start
+                }}
             >
-                {translatedText && <Results translatedText={translatedText} />}
+                {translatedText && <Results translatedText={translatedText} sx={{ mb: 2 }}/>}
+                {translatedText && (
+                    <Box
+                        sx={{
+                            width: '100%', // Make the Box take up full width
+                            display: 'flex',
+                            justifyContent: 'flex-end', // Align items to the right
+                        }}
+                    >
+                        <Button 
+                            variant="contained" 
+                            sx={{ p: 1 }}
+                            onClick={downloadDeck}
+                        >
+                            Download Deck
+                        </Button>
+                    </Box>
+                )}
             </Box>
         </Box>
         </>

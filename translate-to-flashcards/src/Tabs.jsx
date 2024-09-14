@@ -7,6 +7,7 @@ import FileUpload from './FileUpload';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import Input from './Input'
+import Typography from '@mui/material/Typography';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,7 +57,8 @@ export default function BasicTabs({textValue, setTextValue}) {
             <Input textValue={textValue} setTextValue={setTextValue}/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-            <FileUpload/>
+            {/* <FileUpload/> */}
+            <Typography variant="h6" >Coming Soon!</Typography>
         </TabPanel>
     </Box>
   );
