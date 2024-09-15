@@ -21,7 +21,7 @@ export default function Translate() {
     }, [])
 
     const getTranslation = async() => {
-        await fetch(`/translate-text?sourceLang=${sourceLang}&targetLang=${targetLang}&text=${textValue}`).then(
+        await fetch(`https://ai-flashcard-creator.onrender.com/translate-text?sourceLang=${sourceLang}&targetLang=${targetLang}&text=${textValue}`).then(
             results => results.json()
         ).then(
             data => {
@@ -33,7 +33,7 @@ export default function Translate() {
 
     const downloadDeck = async () => {
         try {
-          const response = await fetch(`/create-flashcards?sourceLang=${sourceLang}&targetLang=${targetLang}&text=${textValue}`);
+          const response = await fetch(`https://ai-flashcard-creator.onrender.com/create-flashcards?sourceLang=${sourceLang}&targetLang=${targetLang}&text=${textValue}`);
           
           if (!response.ok) {
             throw new Error('Network response was not ok');
