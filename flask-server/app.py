@@ -40,7 +40,7 @@ def create_flashcards():
     result = translator.translate_text(text, source_lang=source, target_lang=target)
     generate_deck(source, target, text, translator)
 
-    return send_file("GeneratedDeck.apkg", as_attachment=True)
+    return send_file("GeneratedDeck.apkg", as_attachment=True, download_name="GeneratedDeck.apkg")
 
 
 if __name__ == "__main__":
