@@ -33,36 +33,38 @@ export default function Translate() {
 
     const downloadDeck = async () => {
         try {
-          const response = await fetch(`https://ai-flashcard-creator.onrender.com/create-flashcards?sourceLang=${sourceLang}&targetLang=${targetLang}&text=${textValue}`);
-          
+          // Construct the URL with query parameters
+          const url = `https://ai-flashcard-creator.onrender.com/create-flashcards?sourceLang=${sourceLang}&targetLang=${targetLang}&text=${textValue}`;
+      
+          // Fetch the file from the server
+          const response = await fetch(url);
+      
+          // Check for successful response
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
-          
-          // Get the file name from content-disposition header (optional)
-          const disposition = response.headers.get('Content-Disposition');
-          const fileName = disposition ? disposition.split('filename=')[1] : 'downloaded_file';
-    
+      
           // Create a blob from the response
           const blob = await response.blob();
-          
+      
           // Create a link element
           const link = document.createElement('a');
           link.href = URL.createObjectURL(blob);
-          link.download = fileName;
-          
-          // Append the link to the body and click it
+          link.download = 'GeneratedDeck.apkg';  // Set the desired filename here
+      
+          // Append the link to the body, click it to trigger download, and remove it
           document.body.appendChild(link);
           link.click();
-          
-          // Clean up
           link.remove();
+      
+          // Clean up the URL object
           URL.revokeObjectURL(link.href);
-          
+      
         } catch (error) {
+          // Log any errors that occur
           console.error('Error downloading the file:', error);
         }
-      };
+      };      
     
     return (
         <>
